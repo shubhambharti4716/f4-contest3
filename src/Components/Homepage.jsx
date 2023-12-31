@@ -1,23 +1,17 @@
-// Homepage.js
-import React, { useEffect, useState } from "react";
-import "../Styles/Homepage.css";
-import DownArrow from "../Assets/Arrow 1.svg";
-import profilePic from "../Assets/IMG20210528181544.png";
-import TextLogo from "../Assets/KeazoNBOOKS text.svg";
-import HeartLogo from "../Assets/bx_bx-book-heart.svg";
-import PremiumIcon from "../Assets/fluent_premium-person-20-regular.svg";
-import Notification from "../Assets/ic_round-notifications-none.svg";
-import Logo from "../Assets/logo.svg";
-import SearchIcon from "../Assets/ant-design_search-outlined.svg";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Navbar from "./Navbar";
+import TopThree from "./TopThree";
+import OneMovie from "./OneMovie";
+import BooksList from "./BooksList";
+import BooksContextProvider from "./BooksContextProvider";
 
 function Homepage() {
-  const [query, setQuery] = useState("");
+  const [isTopThreeVisible, setIsTopThreeVisible] = useState(true);
+  const [clickedPosterID, setClickedPosterID] = useState(null);
+  const [searchedTerm, setSearchedTerm] = useState("");
   const [books, setBooks] = useState([]);
 
-  // const [bookImages, setBookImages] = useState([]);
-
-  // it will run once when the component mounts
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,13 +21,17 @@ function Homepage() {
         const sherlockHolmesResponse = await axios.get(
           "https://www.googleapis.com/books/v1/volumes?q=sherlock+holmes"
         );
-        console.log(harryPotterResponse, sherlockHolmesResponse);
 
-        const harryPotterBooks = harryPotterResponse.data.items || [];
-        const sherlockHolmesBooks = sherlockHolmesResponse.data.items || [];
+        const harryPotterBooks =
+          harryPotterResponse.data.items || [];
+        const sherlockHolmesBooks =
+          sherlockHolmesResponse.data.items || [];
 
         // on load combined books data of harry potter & sherlock holmes
-        const initialBooks = [...harryPotterBooks, ...sherlockHolmesBooks];
+        const initialBooks = [
+          ...harryPotterBooks,
+          ...sherlockHolmesBooks,
+        ];
         setBooks(initialBooks);
         console.log("combined data", initialBooks);
       } catch (error) {
@@ -43,76 +41,25 @@ function Homepage() {
     fetchData();
   }, []);
 
-  async function implementSearch(e) {
-    e.preventDefault();
-
-    if (query.trim() === "") {
-      return;
-    }
-
-    try {
-      const response = await axios.get(
-        `https://www.googleapis.com/books/v1/volumes?q=${query}`
-      );
-
-      const searchResults = response.data.items || [];
-      setBooks(searchResults);
-      console.log("searched books", books);
-    } catch (error) {
-      console.log("Error fetching search results:", error);
-    }
-  }
-
   return (
-    <div className="main">
-      <div className="navbar">
-        <div className="logo-div">
-          <img src={Logo} alt="Logo" />
-          <img src={TextLogo} alt="Text Logo" />
-        </div>
-        <form className="search-form">
-          <div>
-            <img src={SearchIcon} alt="Search Icon" />
-            <input
-              type="text"
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search for the book you want and read it now... Sherlock Holmes, Harry Pot..."
-            />
-          </div>
-          <button onClick={implementSearch}>Search</button>
-        </form>
-        <div className="icons-div">
-          <img src={HeartLogo} alt="Heart Logo" />
-          <img src={Notification} alt="Notification Icon" />
-          <img src={PremiumIcon} alt="Premium Icon" />
-          <div className="profile">
-            <img src={profilePic} alt="Profile Pic" />
-            <img src={DownArrow} className="down-arrow" alt="Down Arrow" />
-          </div>
-        </div>
-      </div>
-      <div className="body">
-        <div className="top-books">
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-        <div className="more-books">
-          <h1>More Books</h1>
-          <div className="all-books">
-            {books.map((book) => (
-              <div key={book.id} className="book-item">
-                <img
-                  src={book.volumeInfo.imageLinks?.thumbnail || ''}
-                  alt={book.volumeInfo.title}
-                  className="book-image"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
+    <BooksContextProvider searchedTerm={searchedTerm}>
+      {/* Navbar component */}
+      <Navbar
+        setSearchedTerm={setSearchedTerm}
+        setIsTopThreeVisible={setIsTopThreeVisible}
+      />
+      {/* Conditionally render TopThree or OneMovie based on isTopThreeVisible */}
+      {isTopThreeVisible ? (
+        <TopThree books={books} />
+      ) : (
+        <OneMovie clickedPosterID={clickedPosterID} />
+      )}
+      {/* BooksList component */}
+      <BooksList
+        setIsTopThreeVisible={setIsTopThreeVisible}
+        setClickedPosterID={setClickedPosterID}
+      />
+    </BooksContextProvider>
   );
 }
 

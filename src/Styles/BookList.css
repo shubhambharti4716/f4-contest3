@@ -1,0 +1,22 @@
+
+.booklist-wrapper {
+    padding: 1.25rem;
+    background-color: #242121;
+    color: #FFFFFF;
+    scroll-behavior: smooth;
+  }
+  .title {
+  font-weight: bold;
+  font-size: 1.7rem;
+  padding-left: 2.25rem;
+}
+.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 1.25rem;
+    
+  }
+  
+ 

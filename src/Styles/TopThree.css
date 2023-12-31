@@ -1,0 +1,142 @@
+.top-three-container {
+  display: flex;
+  align-items: center;
+  margin-top: 64px !important;
+  gap: 2rem;
+  flex-wrap: wrap;
+  height: auto;
+  padding: 20px;
+  background-color: #242121;
+  margin-top: 30px;
+  padding-left: 60px;
+  padding-right: 20px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  width: 100vw;
+}
+
+/* card-1 */
+
+.top3-card1 {
+  border-radius: 8px;
+  overflow: hidden;
+  width: 30%;
+  margin-bottom: 20px;
+  background-color: rgba(113, 197, 244, 0.38);
+}
+
+.top3-card1 img {
+  width: 100%;
+  height: auto;
+}
+
+.top3-card1 .title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.top3-card1 .description {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.top3-card1 .go-to-link {
+  display: inline-block;
+  color: #3182ce;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.top3-card1 .go-to-link:hover {
+  color: #2c5282;
+}
+
+/* card-2 */
+.top3-card2 {
+  border-radius: 8px;
+  overflow: hidden;
+  width: 30%;
+  margin-bottom: 20px;
+  background-color: rgba(113, 197, 244, 0.38);
+}
+
+.top3-card2 img {
+  width: 100%;
+  height: auto;
+}
+
+.top3-card2 .title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.top3-card2 .description {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.top3-card2 .go-to-link {
+  display: inline-block;
+  color: #3182ce;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.top3-card2 .go-to-link:hover {
+  color: #2c5282;
+}
+
+/* card-3 */
+.top3-card3 {
+  border-radius: 8px;
+  overflow: hidden;
+  width: 30%;
+  margin-bottom: 20px;
+  background-color: rgba(113, 197, 244, 0.38);
+}
+
+.top3-card3 img {
+  width: 100%;
+  height: auto;
+}
+
+.top3-card3 .title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.top3-card3 .description {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.top3-card3 .go-to-link {
+  display: inline-block;
+  color: #3182ce;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.top3-card3 .go-to-link:hover {
+  color: #2c5282;
+}
+@media screen and (max-width: 769px) {
+  .top-three-container{
+    justify-content: center;
+    
+  }
+  .card {
+    margin-left: -3rem;
+    scale: 0.7;
+    margin-bottom: -3rem;
+  }
+}
